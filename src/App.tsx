@@ -21,6 +21,19 @@ import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Search from "./pages/Search";
 
+// New Pages
+import BestSellers from "./pages/BestSellers";
+import NewArrivals from "./pages/NewArrivals";
+import Sales from "./pages/Sales";
+import Blog from "./pages/Blog";
+import Sustainability from "./pages/Sustainability";
+import Careers from "./pages/Careers";
+import Shipping from "./pages/Shipping";
+import Returns from "./pages/Returns";
+import FAQ from "./pages/FAQ";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+
 // Admin Pages
 import Dashboard from "./pages/Admin/Dashboard";
 import ProductManagement from "./pages/Admin/ProductManagement";
@@ -56,6 +69,19 @@ const AnimatedRoutes = () => {
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
         <Route path="/auth" element={<PageTransition><Auth /></PageTransition>} />
         <Route path="/search" element={<PageTransition><Search /></PageTransition>} />
+        
+        {/* New Routes */}
+        <Route path="/bestsellers" element={<PageTransition><BestSellers /></PageTransition>} />
+        <Route path="/new-arrivals" element={<PageTransition><NewArrivals /></PageTransition>} />
+        <Route path="/sales" element={<PageTransition><Sales /></PageTransition>} />
+        <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+        <Route path="/sustainability" element={<PageTransition><Sustainability /></PageTransition>} />
+        <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
+        <Route path="/shipping" element={<PageTransition><Shipping /></PageTransition>} />
+        <Route path="/returns" element={<PageTransition><Returns /></PageTransition>} />
+        <Route path="/faq" element={<PageTransition><FAQ /></PageTransition>} />
+        <Route path="/privacy-policy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
+        <Route path="/terms-of-service" element={<PageTransition><TermsOfService /></PageTransition>} />
         
         {/* Admin Routes */}
         <Route path="/admin" element={<PageTransition><Dashboard /></PageTransition>} />
