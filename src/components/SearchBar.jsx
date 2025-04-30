@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Search as SearchIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
@@ -9,8 +9,24 @@ import products from '../data/products';
 const SearchBar = ({ className }) => {
   const [query, setQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
-  const navigate = useNavigate();
   const searchRef = useRef(null);
+  
+  // Check if we're in a router context
+  const routerAvailable = typeof window !== 'undefined' && 
+                         window.location.pathname !== undefined;
+  
+  // Use navigate only if we have router context
+  let navigate;
+  try {
+    navigate = useNavigate();
+  } catch (e) {
+    // If useNavigate fails, we're outside router context
+    navigate = (path) => {
+      if (routerAvailable) {
+        window.location.href = path;
+      }
+    };
+  }
 
   // Close search results when clicking outside
   useEffect(() => {
