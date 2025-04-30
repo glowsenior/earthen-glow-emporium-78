@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, User, Search, Menu, X } from 'lucide-react';
+import { ShoppingBag, User, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import SearchBar from './SearchBar';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,10 +37,8 @@ const Header = () => {
 
           {/* Icons */}
           <div className="flex items-center space-x-4">
-            <Link to="/search" className="hover:text-ceramic-terracotta transition-colors">
-              <Search size={20} />
-            </Link>
-            <Link to="/account" className="hover:text-ceramic-terracotta transition-colors">
+            <SearchBar className="hidden md:block" />
+            <Link to="/auth" className="hover:text-ceramic-terracotta transition-colors">
               <User size={20} />
             </Link>
             <Link to="/cart" className="relative hover:text-ceramic-terracotta transition-colors">
@@ -61,12 +60,14 @@ const Header = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-ceramic-cream py-4 animate-fadeIn">
           <div className="container-custom flex flex-col space-y-4">
+            <SearchBar className="mb-2" />
             <Link to="/" className="font-medium py-2 hover:text-ceramic-terracotta transition-colors" onClick={toggleMenu}>Home</Link>
             <Link to="/shop" className="font-medium py-2 hover:text-ceramic-terracotta transition-colors" onClick={toggleMenu}>Shop</Link>
             <Link to="/categories/ceramics" className="font-medium py-2 hover:text-ceramic-terracotta transition-colors" onClick={toggleMenu}>Ceramics</Link>
             <Link to="/categories/cosmetics" className="font-medium py-2 hover:text-ceramic-terracotta transition-colors" onClick={toggleMenu}>Cosmetics</Link>
             <Link to="/about" className="font-medium py-2 hover:text-ceramic-terracotta transition-colors" onClick={toggleMenu}>About</Link>
             <Link to="/contact" className="font-medium py-2 hover:text-ceramic-terracotta transition-colors" onClick={toggleMenu}>Contact</Link>
+            <Link to="/auth" className="font-medium py-2 hover:text-ceramic-terracotta transition-colors" onClick={toggleMenu}>Login / Register</Link>
           </div>
         </div>
       )}

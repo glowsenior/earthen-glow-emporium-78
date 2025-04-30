@@ -16,6 +16,8 @@ import OrderSuccess from "./pages/OrderSuccess";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Auth from "./pages/Auth";
+import Search from "./pages/Search";
 
 // Admin Pages
 import Dashboard from "./pages/Admin/Dashboard";
@@ -51,6 +53,8 @@ const App = () => (
             <Route path="/order-success" element={<OrderSuccess />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/search" element={<Search />} />
             
             {/* Admin Routes */}
             <Route path="/admin" element={<Dashboard />} />
