@@ -1,8 +1,20 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 const Footer = () => {
+  const { toast } = useToast();
+
+  const handleMissingRoute = (routeName) => (e) => {
+    e.preventDefault();
+    toast({
+      title: "Page under construction",
+      description: `The ${routeName} page is coming soon. Check back later!`,
+      variant: "default",
+    });
+  };
+
   return (
     <footer className="bg-ceramic-navy text-white pt-12 pb-6">
       <div className="container-custom">
@@ -43,9 +55,9 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-gray-300">
               <li><Link to="/categories/ceramics" className="hover:text-white">Ceramics</Link></li>
               <li><Link to="/categories/cosmetics" className="hover:text-white">Cosmetics</Link></li>
-              <li><Link to="/bestsellers" className="hover:text-white">Best Sellers</Link></li>
-              <li><Link to="/new-arrivals" className="hover:text-white">New Arrivals</Link></li>
-              <li><Link to="/sales" className="hover:text-white">Sale Items</Link></li>
+              <li><a href="#" onClick={handleMissingRoute('Best Sellers')} className="hover:text-white">Best Sellers</a></li>
+              <li><a href="#" onClick={handleMissingRoute('New Arrivals')} className="hover:text-white">New Arrivals</a></li>
+              <li><a href="#" onClick={handleMissingRoute('Sale Items')} className="hover:text-white">Sale Items</a></li>
             </ul>
           </div>
           
@@ -55,9 +67,9 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-gray-300">
               <li><Link to="/about" className="hover:text-white">About Us</Link></li>
               <li><Link to="/contact" className="hover:text-white">Contact Us</Link></li>
-              <li><Link to="/blog" className="hover:text-white">Blog</Link></li>
-              <li><Link to="/sustainability" className="hover:text-white">Sustainability</Link></li>
-              <li><Link to="/careers" className="hover:text-white">Careers</Link></li>
+              <li><a href="#" onClick={handleMissingRoute('Blog')} className="hover:text-white">Blog</a></li>
+              <li><a href="#" onClick={handleMissingRoute('Sustainability')} className="hover:text-white">Sustainability</a></li>
+              <li><a href="#" onClick={handleMissingRoute('Careers')} className="hover:text-white">Careers</a></li>
             </ul>
           </div>
           
@@ -65,11 +77,11 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-serif font-bold mb-4">Customer Service</h3>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li><Link to="/shipping" className="hover:text-white">Shipping</Link></li>
-              <li><Link to="/returns" className="hover:text-white">Returns</Link></li>
-              <li><Link to="/faq" className="hover:text-white">FAQ</Link></li>
-              <li><Link to="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
-              <li><Link to="/terms-of-service" className="hover:text-white">Terms of Service</Link></li>
+              <li><a href="#" onClick={handleMissingRoute('Shipping')} className="hover:text-white">Shipping</a></li>
+              <li><a href="#" onClick={handleMissingRoute('Returns')} className="hover:text-white">Returns</a></li>
+              <li><a href="#" onClick={handleMissingRoute('FAQ')} className="hover:text-white">FAQ</a></li>
+              <li><a href="#" onClick={handleMissingRoute('Privacy Policy')} className="hover:text-white">Privacy Policy</a></li>
+              <li><a href="#" onClick={handleMissingRoute('Terms of Service')} className="hover:text-white">Terms of Service</a></li>
             </ul>
           </div>
         </div>
