@@ -3,8 +3,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
+import { AnimatePresence } from "framer-motion";
+import PageTransition from "./components/PageTransition";
 
 // Pages
 import Index from "./pages/Index";
@@ -35,6 +37,49 @@ import Discounts from "./pages/Admin/Discounts";
 
 const queryClient = new QueryClient();
 
+// AnimatedRoutes component to handle route transitions
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {/* Customer Routes */}
+        <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+        <Route path="/shop" element={<PageTransition><Shop /></PageTransition>} />
+        <Route path="/product/:id" element={<PageTransition><ProductDetail /></PageTransition>} />
+        <Route path="/categories/:category" element={<PageTransition><Shop /></PageTransition>} />
+        <Route path="/cart" element={<PageTransition><Cart /></PageTransition>} />
+        <Route path="/checkout" element={<PageTransition><Checkout /></PageTransition>} />
+        <Route path="/order-success" element={<PageTransition><OrderSuccess /></PageTransition>} />
+        <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="/auth" element={<PageTransition><Auth /></PageTransition>} />
+        <Route path="/search" element={<PageTransition><Search /></PageTransition>} />
+        
+        {/* Admin Routes */}
+        <Route path="/admin" element={<PageTransition><Dashboard /></PageTransition>} />
+        <Route path="/admin/products" element={<PageTransition><ProductManagement /></PageTransition>} />
+        <Route path="/admin/products/new" element={<PageTransition><ProductForm /></PageTransition>} />
+        <Route path="/admin/products/edit/:id" element={<PageTransition><ProductForm /></PageTransition>} />
+        <Route path="/admin/categories" element={<PageTransition><Categories /></PageTransition>} />
+        <Route path="/admin/inventory" element={<PageTransition><Inventory /></PageTransition>} />
+        <Route path="/admin/orders" element={<PageTransition><Orders /></PageTransition>} />
+        <Route path="/admin/orders/pending" element={<PageTransition><Orders /></PageTransition>} />
+        <Route path="/admin/shipments" element={<PageTransition><Shipments /></PageTransition>} />
+        <Route path="/admin/returns" element={<PageTransition><Returns /></PageTransition>} />
+        <Route path="/admin/customers" element={<PageTransition><Customers /></PageTransition>} />
+        <Route path="/admin/reviews" element={<PageTransition><Reviews /></PageTransition>} />
+        <Route path="/admin/newsletter" element={<PageTransition><Newsletter /></PageTransition>} />
+        <Route path="/admin/discounts" element={<PageTransition><Discounts /></PageTransition>} />
+        
+        {/* Catch All Route */}
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -42,39 +87,7 @@ const App = () => (
       <Sonner />
       <CartProvider>
         <BrowserRouter>
-          <Routes>
-            {/* Customer Routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/categories/:category" element={<Shop />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/order-success" element={<OrderSuccess />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/search" element={<Search />} />
-            
-            {/* Admin Routes */}
-            <Route path="/admin" element={<Dashboard />} />
-            <Route path="/admin/products" element={<ProductManagement />} />
-            <Route path="/admin/products/new" element={<ProductForm />} />
-            <Route path="/admin/products/edit/:id" element={<ProductForm />} />
-            <Route path="/admin/categories" element={<Categories />} />
-            <Route path="/admin/inventory" element={<Inventory />} />
-            <Route path="/admin/orders" element={<Orders />} />
-            <Route path="/admin/orders/pending" element={<Orders />} />
-            <Route path="/admin/shipments" element={<Shipments />} />
-            <Route path="/admin/returns" element={<Returns />} />
-            <Route path="/admin/customers" element={<Customers />} />
-            <Route path="/admin/reviews" element={<Reviews />} />
-            <Route path="/admin/newsletter" element={<Newsletter />} />
-            <Route path="/admin/discounts" element={<Discounts />} />
-            
-            {/* Catch All Route */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <AnimatedRoutes />
         </BrowserRouter>
       </CartProvider>
     </TooltipProvider>
