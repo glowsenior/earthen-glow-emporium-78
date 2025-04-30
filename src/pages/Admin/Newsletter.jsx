@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
 import ThreeDAnimation from '../../components/ThreeDAnimation';
-import { Search, Mail, Send, calendar as Calendar } from 'lucide-react';
+import { Search, Mail, Send, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
 
 const Newsletter = () => {
