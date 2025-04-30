@@ -21,6 +21,15 @@ import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Admin/Dashboard";
 import ProductManagement from "./pages/Admin/ProductManagement";
 import ProductForm from "./pages/Admin/ProductForm";
+import Categories from "./pages/Admin/Categories";
+import Inventory from "./pages/Admin/Inventory";
+import Orders from "./pages/Admin/Orders";
+import Shipments from "./pages/Admin/Shipments";
+import Returns from "./pages/Admin/Returns";
+import Customers from "./pages/Admin/Customers";
+import Reviews from "./pages/Admin/Reviews";
+import Newsletter from "./pages/Admin/Newsletter";
+import Discounts from "./pages/Admin/Discounts";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +57,16 @@ const App = () => (
             <Route path="/admin/products" element={<ProductManagement />} />
             <Route path="/admin/products/new" element={<ProductForm />} />
             <Route path="/admin/products/edit/:id" element={<ProductForm />} />
+            <Route path="/admin/categories" element={<Categories />} />
+            <Route path="/admin/inventory" element={<Inventory />} />
+            <Route path="/admin/orders" element={<Orders />} />
+            <Route path="/admin/orders/pending" element={<Orders />} />
+            <Route path="/admin/shipments" element={<Shipments />} />
+            <Route path="/admin/returns" element={<Returns />} />
+            <Route path="/admin/customers" element={<Customers />} />
+            <Route path="/admin/reviews" element={<Reviews />} />
+            <Route path="/admin/newsletter" element={<Newsletter />} />
+            <Route path="/admin/discounts" element={<Discounts />} />
             
             {/* Catch All Route */}
             <Route path="*" element={<NotFound />} />
