@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from '../../components/AdminLayout';
 import ThreeDAnimation from '../../components/ThreeDAnimation';
-import { Search, Filter, Eye, package as Package, calendar as Calendar } from 'lucide-react';
+import { Search, Filter, Eye, Package, Calendar } from 'lucide-react';
 
 const Orders = () => {
   // Mock orders data
