@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Box } from 'lucide-react';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
@@ -24,11 +24,19 @@ const ProductCard = ({ product }) => {
           />
           <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-10"></div>
           
-          {product.sale && (
-            <div className="absolute top-2 right-2 bg-ceramic-terracotta text-white text-xs font-bold px-2 py-1 rounded">
-              SALE
-            </div>
-          )}
+          <div className="absolute top-2 right-2 flex flex-col gap-2 items-end">
+            {product.sale && (
+              <div className="bg-ceramic-terracotta text-white text-xs font-bold px-2 py-1 rounded">
+                SALE
+              </div>
+            )}
+            
+            {product.has3DView && (
+              <div className="bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center">
+                <Box size={12} className="mr-1" /> 3D
+              </div>
+            )}
+          </div>
           
           <button 
             onClick={handleAddToCart}

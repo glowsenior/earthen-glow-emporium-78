@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { toast } from "sonner";
 import products from '../../data/products';
+import ThreeDAnimation from '../../components/ThreeDAnimation';
 
 const ProductForm = () => {
   const { id } = useParams();
@@ -19,11 +19,15 @@ const ProductForm = () => {
     images: ['', '', ''],
     featured: false,
     sale: false,
-    stockQuantity: ''
+    stockQuantity: '',
+    has3DView: false,
+    productType: '',
+    modelColor: '#ECD4BC'
   };
   
   const [formData, setFormData] = useState(emptyProduct);
   const [errors, setErrors] = useState({});
+  const [showPreview, setShowPreview] = useState(false);
   
   useEffect(() => {
     if (isEditing) {
@@ -40,7 +44,10 @@ const ProductForm = () => {
           images: productImages,
           price: productToEdit.price.toString(),
           salePrice: productToEdit.salePrice ? productToEdit.salePrice.toString() : '',
-          stockQuantity: productToEdit.stockQuantity.toString()
+          stockQuantity: productToEdit.stockQuantity.toString(),
+          has3DView: productToEdit.has3DView || false,
+          productType: productToEdit.productType || '',
+          modelColor: productToEdit.modelColor || '#ECD4BC'
         });
       } else {
         toast.error("Product not found");
@@ -129,6 +136,16 @@ const ProductForm = () => {
     }
     
     navigate('/admin/products');
+  };
+  
+  // Generate product type options based on category
+  const getProductTypeOptions = () => {
+    if (formData.category === 'Ceramics') {
+      return ['vase', 'plate', 'bowl', 'mug'];
+    } else if (formData.category === 'Cosmetics') {
+      return ['cream', 'bottle', 'compact'];
+    }
+    return [];
   };
   
   return (
@@ -325,6 +342,95 @@ const ProductForm = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+            
+            <div className="border-t border-gray-200 pt-6 mb-6">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">3D Product View</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="has3DView"
+                      name="has3DView"
+                      checked={formData.has3DView}
+                      onChange={handleChange}
+                      className="h-4 w-4 text-ceramic-terracotta rounded border-gray-300 focus:ring-ceramic-terracotta"
+                    />
+                    <label htmlFor="has3DView" className="ml-2 block text-sm text-gray-700">
+                      Enable 3D product view
+                    </label>
+                  </div>
+                  
+                  {formData.has3DView && (
+                    <>
+                      <div>
+                        <label htmlFor="productType" className="block text-sm font-medium text-gray-700 mb-1">
+                          Product Shape Type
+                        </label>
+                        <select
+                          id="productType"
+                          name="productType"
+                          value={formData.productType}
+                          onChange={handleChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-ceramic-terracotta"
+                        >
+                          <option value="">Select a model type</option>
+                          {getProductTypeOptions().map(type => (
+                            <option key={type} value={type}>{type.charAt(0).toUpperCase() + type.slice(1)}</option>
+                          ))}
+                        </select>
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="modelColor" className="block text-sm font-medium text-gray-700 mb-1">
+                          Model Color
+                        </label>
+                        <div className="flex items-center">
+                          <input
+                            type="color"
+                            id="modelColor"
+                            name="modelColor"
+                            value={formData.modelColor}
+                            onChange={handleChange}
+                            className="w-12 h-8 p-0 border-none"
+                          />
+                          <input
+                            type="text"
+                            value={formData.modelColor}
+                            onChange={handleChange}
+                            name="modelColor"
+                            className="ml-2 w-32 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-ceramic-terracotta"
+                          />
+                        </div>
+                      </div>
+                      
+                      <button
+                        type="button"
+                        onClick={() => setShowPreview(!showPreview)}
+                        className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 focus:outline-none"
+                      >
+                        {showPreview ? 'Hide Preview' : 'Show 3D Preview'}
+                      </button>
+                    </>
+                  )}
+                </div>
+                
+                {formData.has3DView && showPreview && (
+                  <div className="bg-gray-50 p-4 rounded-md">
+                    <p className="text-sm text-gray-500 mb-2">3D Model Preview:</p>
+                    <div className="h-64 w-full">
+                      <ThreeDAnimation 
+                        type={formData.category.toLowerCase()} 
+                        productType={formData.productType} 
+                        color={formData.modelColor}
+                        height="100%"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             

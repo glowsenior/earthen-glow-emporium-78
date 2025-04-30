@@ -1,9 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Box, Package } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ThreeDAnimation from '../components/ThreeDAnimation';
 import products from '../data/products';
 import { useCart } from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
@@ -14,6 +15,7 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [showingImage, setShowingImage] = useState(true);
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -27,6 +29,9 @@ const ProductDetail = () => {
         .slice(0, 4);
       
       setRelatedProducts(related);
+      
+      // Reset view mode when product changes
+      setShowingImage(true);
     }
     
     // Reset quantity and image index when product changes
@@ -82,6 +87,11 @@ const ProductDetail = () => {
 
   const selectImage = (index) => {
     setCurrentImageIndex(index);
+    setShowingImage(true);
+  };
+
+  const toggleView = () => {
+    setShowingImage(!showingImage);
   };
 
   if (!product) {
@@ -133,11 +143,22 @@ const ProductDetail = () => {
             {/* Product Images */}
             <div>
               <div className="relative overflow-hidden rounded-lg bg-gray-100 aspect-square mb-4">
-                <img
-                  src={product.images[currentImageIndex]}
-                  alt={product.name}
-                  className="object-cover object-center w-full h-full"
-                />
+                {showingImage ? (
+                  <img
+                    src={product.images[currentImageIndex]}
+                    alt={product.name}
+                    className="object-cover object-center w-full h-full animate-fade-in"
+                  />
+                ) : (
+                  <div className="w-full h-full animate-fade-in">
+                    <ThreeDAnimation 
+                      type={product.category.toLowerCase()} 
+                      productType={product.productType} 
+                      color={product.modelColor || '#ECD4BC'} 
+                      height="100%" 
+                    />
+                  </div>
+                )}
                 
                 {product.sale && (
                   <div className="absolute top-4 right-4 bg-ceramic-terracotta text-white text-xs font-bold px-3 py-1 rounded-full">
@@ -145,7 +166,7 @@ const ProductDetail = () => {
                   </div>
                 )}
                 
-                {product.images.length > 1 && (
+                {showingImage && product.images.length > 1 && (
                   <>
                     <button 
                       onClick={prevImage}
@@ -163,15 +184,38 @@ const ProductDetail = () => {
                     </button>
                   </>
                 )}
+                
+                {product.has3DView && (
+                  <button
+                    onClick={toggleView}
+                    className="absolute bottom-4 right-4 px-3 py-2 bg-white/70 backdrop-blur-sm rounded-md flex items-center text-sm font-medium text-gray-800 hover:bg-white/90 transition-all"
+                  >
+                    {showingImage ? (
+                      <>
+                        <Box size={16} className="mr-2" />
+                        View 3D Model
+                      </>
+                    ) : (
+                      <>
+                        <Package size={16} className="mr-2" />
+                        View Photos
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
               
-              {product.images.length > 1 && (
+              {showingImage && product.images.length > 1 && (
                 <div className="grid grid-cols-4 gap-2">
                   {product.images.map((img, index) => (
                     <button
                       key={index}
                       onClick={() => selectImage(index)}
-                      className={`aspect-square overflow-hidden rounded-md ${currentImageIndex === index ? 'ring-2 ring-ceramic-terracotta' : 'ring-1 ring-gray-200'}`}
+                      className={`aspect-square overflow-hidden rounded-md transition-all ${
+                        currentImageIndex === index 
+                          ? 'ring-2 ring-ceramic-terracotta scale-105' 
+                          : 'ring-1 ring-gray-200 hover:ring-gray-300'
+                      }`}
                     >
                       <img 
                         src={img} 
@@ -186,8 +230,8 @@ const ProductDetail = () => {
             
             {/* Product Info */}
             <div className="flex flex-col">
-              <h1 className="text-3xl font-serif font-bold text-gray-900 mb-2">{product.name}</h1>
-              <div className="mb-4">
+              <h1 className="text-3xl font-serif font-bold text-gray-900 mb-2 animate-fade-in">{product.name}</h1>
+              <div className="mb-4 animate-fade-in" style={{animationDelay: "0.1s"}}>
                 {product.sale ? (
                   <div className="flex items-baseline space-x-2">
                     <span className="text-2xl font-bold text-ceramic-terracotta">${product.salePrice.toFixed(2)}</span>
@@ -198,9 +242,9 @@ const ProductDetail = () => {
                 )}
               </div>
               
-              <p className="text-gray-600 mb-6">{product.description}</p>
+              <p className="text-gray-600 mb-6 animate-fade-in" style={{animationDelay: "0.2s"}}>{product.description}</p>
               
-              <div className="mb-6">
+              <div className="mb-6 animate-fade-in" style={{animationDelay: "0.3s"}}>
                 <p className="text-sm text-gray-600 mb-1">Quantity</p>
                 <div className="flex items-center">
                   <button
@@ -235,16 +279,17 @@ const ProductDetail = () => {
               <button
                 onClick={handleAddToCart}
                 disabled={product.stockQuantity === 0}
-                className={`w-full px-6 py-3 rounded-md font-medium ${
+                className={`w-full px-6 py-3 rounded-md font-medium animate-fade-in ${
                   product.stockQuantity > 0 
-                    ? 'bg-ceramic-terracotta hover:bg-ceramic-clay text-white' 
+                    ? 'bg-ceramic-terracotta hover:bg-ceramic-clay text-white hover:scale-[1.02] transition-transform' 
                     : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                 }`}
+                style={{animationDelay: "0.4s"}}
               >
                 {product.stockQuantity > 0 ? 'Add to Cart' : 'Out of Stock'}
               </button>
               
-              <div className="mt-8 pt-6 border-t border-gray-200">
+              <div className="mt-8 pt-6 border-t border-gray-200 animate-fade-in" style={{animationDelay: "0.5s"}}>
                 <h3 className="font-medium text-gray-900 mb-2">Product Details</h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-600">
                   <li>Category: {product.category}</li>
@@ -265,7 +310,7 @@ const ProductDetail = () => {
                 </ul>
               </div>
               
-              <div className="mt-6 pt-6 border-t border-gray-200">
+              <div className="mt-6 pt-6 border-t border-gray-200 animate-fade-in" style={{animationDelay: "0.6s"}}>
                 <h3 className="font-medium text-gray-900 mb-2">Shipping & Returns</h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-600">
                   <li>Free shipping on orders over $50</li>
@@ -278,7 +323,7 @@ const ProductDetail = () => {
 
           {/* Related Products */}
           {relatedProducts.length > 0 && (
-            <div className="mb-16">
+            <div className="mb-16 animate-fade-in" style={{animationDelay: "0.7s"}}>
               <h2 className="text-2xl font-serif font-bold mb-6">You May Also Like</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {relatedProducts.map(product => (

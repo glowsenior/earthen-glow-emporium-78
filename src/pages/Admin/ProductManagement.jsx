@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Edit, Trash } from 'lucide-react';
+import { Edit, Trash, Box } from 'lucide-react';
 import products from '../../data/products';
 
 const ProductManagement = () => {
@@ -104,7 +104,7 @@ const ProductManagement = () => {
                     Stock
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
+                    Features
                   </th>
                   <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
@@ -145,11 +145,25 @@ const ProductManagement = () => {
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 py-1 text-xs rounded-full ${
-                        product.sale ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'
-                      }`}>
-                        {product.sale ? 'On Sale' : 'Regular Price'}
-                      </span>
+                      <div className="flex space-x-2">
+                        <span className={`px-2 py-1 text-xs rounded-full ${
+                          product.sale ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'
+                        }`}>
+                          {product.sale ? 'On Sale' : 'Regular Price'}
+                        </span>
+                        
+                        {product.featured && (
+                          <span className="px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-800">
+                            Featured
+                          </span>
+                        )}
+                        
+                        {product.has3DView && (
+                          <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800 flex items-center">
+                            <Box size={12} className="mr-1" /> 3D View
+                          </span>
+                        )}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-3">

@@ -15,7 +15,10 @@ const products = [
     ],
     featured: true,
     sale: false,
-    stockQuantity: 15
+    stockQuantity: 15,
+    has3DView: true,
+    productType: "vase",
+    modelColor: "#B88B6C"
   },
   {
     id: 2,
@@ -32,7 +35,10 @@ const products = [
     ],
     featured: true,
     sale: true,
-    stockQuantity: 42
+    stockQuantity: 42,
+    has3DView: true,
+    productType: "compact",
+    modelColor: "#D4B8A8"
   },
   {
     id: 3,
@@ -48,7 +54,10 @@ const products = [
     ],
     featured: true,
     sale: false,
-    stockQuantity: 8
+    stockQuantity: 8,
+    has3DView: true,
+    productType: "plate",
+    modelColor: "#ECDCC7"
   },
   {
     id: 4,
@@ -64,7 +73,10 @@ const products = [
     ],
     featured: true,
     sale: false,
-    stockQuantity: 23
+    stockQuantity: 23,
+    has3DView: true,
+    productType: "bottle",
+    modelColor: "#F1C3A9"
   },
   {
     id: 5,
@@ -81,7 +93,10 @@ const products = [
     ],
     featured: false,
     sale: true,
-    stockQuantity: 31
+    stockQuantity: 31,
+    has3DView: true,
+    productType: "mug",
+    modelColor: "#C5B9AD"
   },
   {
     id: 6,
@@ -97,7 +112,8 @@ const products = [
     ],
     featured: false,
     sale: false,
-    stockQuantity: 19
+    stockQuantity: 19,
+    has3DView: false
   },
   {
     id: 7,
@@ -113,7 +129,10 @@ const products = [
     ],
     featured: false,
     sale: false,
-    stockQuantity: 12
+    stockQuantity: 12,
+    has3DView: true,
+    productType: "bowl",
+    modelColor: "#A3846B"
   },
   {
     id: 8,
@@ -129,7 +148,8 @@ const products = [
     ],
     featured: false,
     sale: false,
-    stockQuantity: 27
+    stockQuantity: 27,
+    has3DView: false
   }
 ];
 
