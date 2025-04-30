@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import AdminLayout from '../../components/AdminLayout';
 import ThreeDAnimation from '../../components/ThreeDAnimation';
 import { Search, Filter, Eye, Package, Calendar } from 'lucide-react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const Orders = () => {
   // Mock orders data
@@ -174,46 +182,28 @@ const Orders = () => {
             </div>
             
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Order ID
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Customer
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Date
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Total
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Order ID</TableHead>
+                    <TableHead>Customer</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Total</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
                   {filteredOrders.map((order) => (
-                    <tr key={order.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {order.id}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                    <TableRow key={order.id} className="hover:bg-gray-50">
+                      <TableCell className="font-medium">{order.id}</TableCell>
+                      <TableCell>
                         <div>{order.customer}</div>
                         <div className="text-xs text-gray-500">{order.email}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                        {order.date}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                        ${order.total.toFixed(2)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      </TableCell>
+                      <TableCell>{order.date}</TableCell>
+                      <TableCell>${order.total.toFixed(2)}</TableCell>
+                      <TableCell>
                         <span className={`px-2 py-1 text-xs rounded-full ${
                           order.status === 'Delivered' ? 'bg-green-100 text-green-800' :
                           order.status === 'Shipped' ? 'bg-blue-100 text-blue-800' :
@@ -222,19 +212,19 @@ const Orders = () => {
                         }`}>
                           {order.status}
                         </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      </TableCell>
+                      <TableCell>
                         <button 
                           onClick={() => setSelectedOrder(getOrderDetails(order))} 
                           className="text-ceramic-terracotta hover:text-ceramic-clay"
                         >
                           <Eye size={16} />
                         </button>
-                      </td>
-                    </tr>
+                      </TableCell>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             </div>
             
             {filteredOrders.length === 0 && (
