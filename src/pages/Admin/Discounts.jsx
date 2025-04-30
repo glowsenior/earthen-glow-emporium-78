@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
 import ThreeDAnimation from '../../components/ThreeDAnimation';
-import { Plus, Edit, Trash, calendar as Calendar } from 'lucide-react';
+import { Plus, Edit, Trash, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
 
 const Discounts = () => {
