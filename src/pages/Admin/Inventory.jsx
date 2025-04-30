@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from '../../components/AdminLayout';
 import ThreeDAnimation from '../../components/ThreeDAnimation';
-import { Search, ArrowUp, ArrowDown, package as Package } from 'lucide-react';
+import { Search, ArrowUp, ArrowDown, Package } from 'lucide-react';
 import products from '../../data/products';
 
 const Inventory = () => {

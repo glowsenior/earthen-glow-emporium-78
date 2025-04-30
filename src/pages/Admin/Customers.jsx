@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
 import ThreeDAnimation from '../../components/ThreeDAnimation';
-import { Search, Mail, User, package as Package } from 'lucide-react';
+import { Search, Mail, User, Package } from 'lucide-react';
 
 const Customers = () => {
   // Mock customers data

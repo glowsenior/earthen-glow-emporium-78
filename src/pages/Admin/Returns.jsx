@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
 import ThreeDAnimation from '../../components/ThreeDAnimation';
-import { Search, Filter, package as Package, calendar as Calendar } from 'lucide-react';
+import { Search, Filter, Package, Calendar } from 'lucide-react';
 
 const Returns = () => {
   // Mock returns data

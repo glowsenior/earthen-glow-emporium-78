@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
 import ThreeDAnimation from '../../components/ThreeDAnimation';
-import { Search, Star, check as Check, x as X } from 'lucide-react';
+import { Search, Star, Check, X } from 'lucide-react';
 
 const Reviews = () => {
   // Mock reviews data

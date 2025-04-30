@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
 import ThreeDAnimation from '../../components/ThreeDAnimation';
-import { Search, package as Package, calendar as Calendar } from 'lucide-react';
+import { Search, Package, Calendar } from 'lucide-react';
 
 const Shipments = () => {
   // Mock shipments data
