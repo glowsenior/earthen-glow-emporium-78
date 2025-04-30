@@ -26,6 +26,7 @@ import Dashboard from "./pages/Admin/Dashboard";
 import ProductManagement from "./pages/Admin/ProductManagement";
 import ProductForm from "./pages/Admin/ProductForm";
 import Categories from "./pages/Admin/Categories";
+import MediaManager from "./pages/Admin/MediaManager";
 import Inventory from "./pages/Admin/Inventory";
 import Orders from "./pages/Admin/Orders";
 import Shipments from "./pages/Admin/Shipments";
@@ -63,6 +64,7 @@ const AnimatedRoutes = () => {
         <Route path="/admin/products/new" element={<PageTransition><ProductForm /></PageTransition>} />
         <Route path="/admin/products/edit/:id" element={<PageTransition><ProductForm /></PageTransition>} />
         <Route path="/admin/categories" element={<PageTransition><Categories /></PageTransition>} />
+        <Route path="/admin/media" element={<PageTransition><MediaManager /></PageTransition>} />
         <Route path="/admin/inventory" element={<PageTransition><Inventory /></PageTransition>} />
         <Route path="/admin/orders" element={<PageTransition><Orders /></PageTransition>} />
         <Route path="/admin/orders/pending" element={<PageTransition><Orders /></PageTransition>} />
