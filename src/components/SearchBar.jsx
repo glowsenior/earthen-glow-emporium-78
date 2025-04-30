@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search as SearchIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
-import { products } from '../data/products';
+import products from '../data/products';
 
 const SearchBar = ({ className }) => {
   const [query, setQuery] = useState('');

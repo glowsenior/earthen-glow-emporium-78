@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search as SearchIcon } from 'lucide-react';
@@ -5,7 +6,7 @@ import ProductCard from '../components/ProductCard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
-import { products } from '../data/products';
+import products from '../data/products';
 import SearchFilters from '../components/SearchFilters';
 
 const Search = () => {
