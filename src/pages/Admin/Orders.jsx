@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import AdminLayout from '../../components/AdminLayout';
-import ThreeDAnimation from '../../components/ThreeDAnimation';
 import { Search, Filter, Eye, Package, Calendar, ArrowLeft } from 'lucide-react';
 import {
   Table,
@@ -366,10 +365,7 @@ const Orders = () => {
                   Shipment
                 </Link>
               </div>
-              
-              <div className="mt-6">
-                <ThreeDAnimation type="default" height="100px" />
-              </div>
+            
             </div>
           </div>
         )}

@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
-import ThreeDAnimation from '../../components/ThreeDAnimation';
 import { Search, Filter, Package, Calendar } from 'lucide-react';
 
 const Returns = () => {
@@ -345,9 +344,6 @@ const Returns = () => {
                 </div>
               )}
               
-              <div className="mt-6">
-                <ThreeDAnimation type="ceramic" height="100px" />
-              </div>
             </div>
           </div>
         )}

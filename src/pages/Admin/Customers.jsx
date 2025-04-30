@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
-import ThreeDAnimation from '../../components/ThreeDAnimation';
 import { Search, Mail, User, Package } from 'lucide-react';
 
 const Customers = () => {
@@ -408,10 +407,6 @@ const Customers = () => {
                 <button className="btn-primary w-full">
                   Email Customer
                 </button>
-              </div>
-              
-              <div className="mt-6">
-                <ThreeDAnimation type="cosmetic" height="100px" />
               </div>
             </div>
           </div>

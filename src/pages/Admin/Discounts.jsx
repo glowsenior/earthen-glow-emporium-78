@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
-import ThreeDAnimation from '../../components/ThreeDAnimation';
 import { Plus, Edit, Trash, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -483,10 +482,6 @@ const Discounts = () => {
                     {discounts.reduce((total, discount) => total + discount.usedCount, 0)}
                   </p>
                 </div>
-              </div>
-              
-              <div className="mt-6">
-                <ThreeDAnimation type="default" height="150px" />
               </div>
             </div>
           )}

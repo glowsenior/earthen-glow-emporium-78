@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from '../../components/AdminLayout';
-import ThreeDAnimation from '../../components/ThreeDAnimation';
 import { Search, ArrowUp, ArrowDown, Package } from 'lucide-react';
 import products from '../../data/products';
 
@@ -211,10 +210,6 @@ const Inventory = () => {
               <Link to="/admin/products" className="btn-primary block text-center">
                 Manage Products
               </Link>
-            </div>
-            
-            <div className="mt-6">
-              <ThreeDAnimation type="cosmetic" height="150px" />
             </div>
           </div>
         </div>

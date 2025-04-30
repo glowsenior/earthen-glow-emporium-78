@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
-import ThreeDAnimation from '../../components/ThreeDAnimation';
 import { Search, Package, Calendar } from 'lucide-react';
 
 const Shipments = () => {
@@ -344,10 +343,7 @@ const Shipments = () => {
                 <button className="btn-primary w-full mb-2">Print Label</button>
                 <button className="btn-secondary w-full">Send Tracking Info</button>
               </div>
-              
-              <div className="mt-6">
-                <ThreeDAnimation type="default" height="100px" />
-              </div>
+
             </div>
           </div>
         )}

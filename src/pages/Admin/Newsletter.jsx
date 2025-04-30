@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
-import ThreeDAnimation from '../../components/ThreeDAnimation';
 import { Search, Mail, Send, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -406,9 +405,6 @@ const Newsletter = () => {
               </button>
             </form>
             
-            <div className="mt-6">
-              <ThreeDAnimation type="ceramic" height="150px" />
-            </div>
           </div>
           
           <div className="bg-white rounded-lg shadow-sm p-6">

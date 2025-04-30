@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
-import ThreeDAnimation from '../../components/ThreeDAnimation';
 import { Search, Star, Check, X } from 'lucide-react';
 
 const Reviews = () => {
@@ -391,10 +390,7 @@ const Reviews = () => {
                   Delete Review
                 </button>
               </div>
-              
-              <div className="mt-6">
-                <ThreeDAnimation type="cosmetic" height="100px" />
-              </div>
+
             </div>
           </div>
         )}

@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import AdminLayout from '../../components/AdminLayout';
 import { Plus, Edit, Trash, Save } from 'lucide-react';
-import ThreeDAnimation from '../../components/ThreeDAnimation';
 
 const Categories = () => {
   const [categories, setCategories] = useState([
@@ -189,9 +188,6 @@ const Categories = () => {
               </button>
             </div>
             
-            <div className="mt-6">
-              <ThreeDAnimation type="ceramic" height="150px" />
-            </div>
           </div>
         </div>
       </div>
