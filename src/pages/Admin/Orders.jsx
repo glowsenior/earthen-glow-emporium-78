@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import AdminLayout from '../../components/AdminLayout';
 import ThreeDAnimation from '../../components/ThreeDAnimation';
-import { Search, Filter, Eye, Package, Calendar } from 'lucide-react';
+import { Search, Filter, Eye, Package, Calendar, ArrowLeft } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -101,6 +101,21 @@ const Orders = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const { orderId } = useParams();
+  const navigate = useNavigate();
+  
+  // Effect to load specific order when orderId is in URL
+  useEffect(() => {
+    if (orderId) {
+      const orderDetails = initialOrders.find(order => order.id === orderId);
+      if (orderDetails) {
+        setSelectedOrder(getOrderDetails(orderDetails));
+      } else {
+        console.error(`Order ${orderId} not found`);
+        navigate('/admin/orders', { replace: true });
+      }
+    }
+  }, [orderId, navigate]);
   
   // Filter orders based on search term and status filter
   const filteredOrders = orders.filter(order => {
@@ -148,86 +163,109 @@ const Orders = () => {
     };
   };
   
+  const handleViewOrder = (order) => {
+    navigate(`/admin/orders/${order.id}`);
+  };
+  
+  const handleBackToOrders = () => {
+    setSelectedOrder(null);
+    navigate('/admin/orders');
+  };
+  
   return (
-    <AdminLayout title={statusFilter === 'pending' ? "Pending Orders" : "All Orders"}>
+    <AdminLayout title={orderId ? `Order ${orderId}` : (statusFilter === 'pending' ? "Pending Orders" : "All Orders")}>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className={selectedOrder ? "lg:col-span-2" : "lg:col-span-3"}>
           <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-              <div className="flex flex-wrap mb-4 sm:mb-0">
-                {statuses.map((status, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setStatusFilter(status)}
-                    className={`px-3 py-1 text-sm rounded-full mr-2 mb-2 ${
-                      statusFilter === status 
-                        ? 'bg-ceramic-terracotta text-white' 
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    {status.charAt(0).toUpperCase() + status.slice(1)}
-                  </button>
-                ))}
-              </div>
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search orders..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-ceramic-terracotta"
-                />
-                <Search className="absolute left-3 top-2.5 text-gray-400" size={16} />
-              </div>
-            </div>
+            {orderId && (
+              <button 
+                onClick={handleBackToOrders}
+                className="flex items-center text-ceramic-terracotta hover:text-ceramic-clay mb-4"
+              >
+                <ArrowLeft size={16} className="mr-1" />
+                Back to all orders
+              </button>
+            )}
             
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Order ID</TableHead>
-                    <TableHead>Customer</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Total</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredOrders.map((order) => (
-                    <TableRow key={order.id} className="hover:bg-gray-50">
-                      <TableCell className="font-medium">{order.id}</TableCell>
-                      <TableCell>
-                        <div>{order.customer}</div>
-                        <div className="text-xs text-gray-500">{order.email}</div>
-                      </TableCell>
-                      <TableCell>{order.date}</TableCell>
-                      <TableCell>${order.total.toFixed(2)}</TableCell>
-                      <TableCell>
-                        <span className={`px-2 py-1 text-xs rounded-full ${
-                          order.status === 'Delivered' ? 'bg-green-100 text-green-800' :
-                          order.status === 'Shipped' ? 'bg-blue-100 text-blue-800' :
-                          order.status === 'Processing' ? 'bg-purple-100 text-purple-800' :
-                          'bg-yellow-100 text-yellow-800'
-                        }`}>
-                          {order.status}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <button 
-                          onClick={() => setSelectedOrder(getOrderDetails(order))} 
-                          className="text-ceramic-terracotta hover:text-ceramic-clay"
-                        >
-                          <Eye size={16} />
-                        </button>
-                      </TableCell>
-                    </TableRow>
+            {!orderId && (
+              <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
+                <div className="flex flex-wrap mb-4 sm:mb-0">
+                  {statuses.map((status, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setStatusFilter(status)}
+                      className={`px-3 py-1 text-sm rounded-full mr-2 mb-2 ${
+                        statusFilter === status 
+                          ? 'bg-ceramic-terracotta text-white' 
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {status.charAt(0).toUpperCase() + status.slice(1)}
+                    </button>
                   ))}
-                </TableBody>
-              </Table>
-            </div>
+                </div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search orders..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-ceramic-terracotta"
+                  />
+                  <Search className="absolute left-3 top-2.5 text-gray-400" size={16} />
+                </div>
+              </div>
+            )}
             
-            {filteredOrders.length === 0 && (
+            {!orderId && (
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Order ID</TableHead>
+                      <TableHead>Customer</TableHead>
+                      <TableHead>Date</TableHead>
+                      <TableHead>Total</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {filteredOrders.map((order) => (
+                      <TableRow key={order.id} className="hover:bg-gray-50">
+                        <TableCell className="font-medium">{order.id}</TableCell>
+                        <TableCell>
+                          <div>{order.customer}</div>
+                          <div className="text-xs text-gray-500">{order.email}</div>
+                        </TableCell>
+                        <TableCell>{order.date}</TableCell>
+                        <TableCell>${order.total.toFixed(2)}</TableCell>
+                        <TableCell>
+                          <span className={`px-2 py-1 text-xs rounded-full ${
+                            order.status === 'Delivered' ? 'bg-green-100 text-green-800' :
+                            order.status === 'Shipped' ? 'bg-blue-100 text-blue-800' :
+                            order.status === 'Processing' ? 'bg-purple-100 text-purple-800' :
+                            'bg-yellow-100 text-yellow-800'
+                          }`}>
+                            {order.status}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <button 
+                            onClick={() => handleViewOrder(order)} 
+                            className="text-ceramic-terracotta hover:text-ceramic-clay"
+                          >
+                            <Eye size={16} />
+                          </button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            )}
+            
+            {filteredOrders.length === 0 && !orderId && (
               <div className="text-center py-6">
                 <p className="text-gray-500">No orders found.</p>
               </div>
@@ -236,18 +274,21 @@ const Orders = () => {
         </div>
         
         {selectedOrder && (
-          <div className="lg:col-span-1">
+          <div className={orderId ? "lg:col-span-3" : "lg:col-span-1"}>
             <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
               <div className="flex justify-between items-start mb-4">
                 <h2 className="text-lg font-medium text-ceramic-navy">Order Details</h2>
-                <button 
-                  onClick={() => setSelectedOrder(null)} 
-                  className="text-gray-500 hover:text-gray-700"
-                >
-                  ✕
-                </button>
+                {!orderId && (
+                  <button 
+                    onClick={() => setSelectedOrder(null)} 
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    ✕
+                  </button>
+                )}
               </div>
               
+              {/* Order details content */}
               <div className="border-b pb-4 mb-4">
                 <div className="flex justify-between mb-2">
                   <span className="text-sm text-gray-500">Order ID:</span>
@@ -319,7 +360,7 @@ const Orders = () => {
                 </select>
               </div>
               
-              <div className="mt-6 flex space-x-2">
+              <div className={`mt-6 flex ${orderId ? 'flex-col md:flex-row' : 'space-x-2'} gap-2`}>
                 <button className="btn-primary flex-1">Print Invoice</button>
                 <Link to={`/admin/shipments/${selectedOrder.id}`} className="btn-secondary flex-1 text-center">
                   Shipment
